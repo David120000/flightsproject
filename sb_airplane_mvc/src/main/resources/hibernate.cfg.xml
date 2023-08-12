@@ -10,7 +10,7 @@
  <property name="connection.username">root</property>
  <property name="connection.password">root</property>
 	
-	
+	<mapping class="rd.sb_airplane_mvc.model.Flight" />
  
  </session-factory>
 </hibernate-configuration>

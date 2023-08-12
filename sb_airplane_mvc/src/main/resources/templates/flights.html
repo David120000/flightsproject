@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Flights</title>
+</head>
+<body>
+
+	<table border="1">
+		<tr>
+			<th>Departure City</th>
+			<th>Departure Time</th>
+			<th>Arrival City</th>
+			<th>Arrival Time</th>
+			<th>Flight ID</th>
+			<th>Captain</th>
+		</tr>
+		<tr th:each="flight : ${flights}">
+			<td th:text="${flight.departureCity}"></td>
+			<td th:text="${flight.departureTime}"></td>
+			<td th:text="${flight.arrivalCity}"></td>
+			<td th:text="${flight.arrivalTime}"></td>
+			<td th:text="${flight.flightId}"></td>
+			<td th:text="${flight.captain}"></td>
+		</tr>
+	</table>
+
+</body>
+</html>
