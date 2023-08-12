@@ -45,6 +45,12 @@ public class Flight {
 
 	
 	
+	public Flight() {
+		this.flightTime = -1L;
+	}
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -101,7 +107,11 @@ public class Flight {
 		this.captain = captain;
 	}
 	
-	
+	public long getFlightTime() {
+		return flightTime;
+	}
+
+
 	public void calculateFlightTime() {
 		this.flightTime = this.departureTime.until(this.arrivalTime, ChronoUnit.MINUTES);
 	}

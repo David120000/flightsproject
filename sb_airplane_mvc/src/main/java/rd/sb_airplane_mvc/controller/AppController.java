@@ -28,4 +28,14 @@ public class AppController {
 		return "flights.html";
 	}
 	
+	
+	@GetMapping("/flight/all/withtimes")
+	public String showAllFlightsWithFlightTimes(Model model) {
+		
+		model.addAttribute("flights", service.getAllFlightsWithFlightTimes());
+		model.addAttribute("flightTimePresent", true);
+		
+		return "flights.html";
+	}
+	
 }

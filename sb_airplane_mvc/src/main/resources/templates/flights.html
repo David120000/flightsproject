@@ -6,6 +6,8 @@
 </head>
 <body>
 
+	<h1>Flights:</h1>
+
 	<table border="1">
 		<tr>
 			<th>Departure City</th>
@@ -14,6 +16,7 @@
 			<th>Arrival Time</th>
 			<th>Flight ID</th>
 			<th>Captain</th>
+			<th th:if="${flightTimePresent == true}">Flight Time</th>
 		</tr>
 		<tr th:each="flight : ${flights}">
 			<td th:text="${flight.departureCity}"></td>
@@ -22,6 +25,7 @@
 			<td th:text="${flight.arrivalTime}"></td>
 			<td th:text="${flight.flightId}"></td>
 			<td th:text="${flight.captain}"></td>
+			<td th:if="${flightTimePresent == true}" th:text="${flight.flightTime} + ' minutes'"></td>
 		</tr>
 	</table>
 

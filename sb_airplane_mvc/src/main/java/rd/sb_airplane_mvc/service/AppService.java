@@ -27,4 +27,20 @@ public class AppService {
 		return db.getAllFlights();
 	}
 
+
+
+	public List<Flight> getAllFlightsWithFlightTimes() {
+		
+		List<Flight> flights = db.getAllFlights();
+		
+		
+		for(Flight flight : flights) {
+			
+			flight.calculateFlightTime();
+		}
+		
+		
+		return flights;
+	}
+
 }
