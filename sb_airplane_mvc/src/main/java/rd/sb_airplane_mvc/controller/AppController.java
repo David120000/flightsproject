@@ -38,4 +38,13 @@ public class AppController {
 		return "flights.html";
 	}
 	
+	
+	@GetMapping("/captain/flighttimes")
+	public String showCaptainFlightTimes(Model model) {
+		
+		model.addAttribute("captains", service.getFlightTimesByCaptains());
+		
+		return "captains.html";
+	}
+	
 }
