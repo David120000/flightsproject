@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Captain Routes</title>
+</head>
+<body>
+	<h1>Routes By Captains:</h1>	
+	<form action="/captain/routes" method="post">
+		<label for="selection">Show routes with the following destination count only:</label>
+		<select id="selection" name="minDestCount">
+			<option th:selected="${previousRequirement == 0}" value="0">Show All</option>
+			<option th:selected="${previousRequirement == 1}">1</option>
+			<option th:selected="${previousRequirement == 2}">2</option>
+			<option th:selected="${previousRequirement == 3}">3</option>
+		</select>
+		<br/>
+		<input type="submit"/>
+	</form>
+	<br/>
+	<br/>
+	<table border="1">
+		<tr th:each="captaindata : ${routesbycaptains}">
+			<td th:text="${captaindata.captainName}"></td>
+			<td>
+				<table border="1">
+					<tr>
+						<th>Departure City</th>
+						<th>Departure Time</th>
+						<th>Arrival City</th>
+						<th>Arrival Time</th>
+						<th>Flight ID</th>				
+					</tr>
+					<tr th:each="flight : ${captaindata.route}">
+						<td th:text="${flight.departureCity}"></td>
+						<td th:text="${flight.departureTime}"></td>
+						<td th:text="${flight.arrivalCity}"></td>
+						<td th:text="${flight.arrivalTime}"></td>
+						<td th:text="${flight.flightId}"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

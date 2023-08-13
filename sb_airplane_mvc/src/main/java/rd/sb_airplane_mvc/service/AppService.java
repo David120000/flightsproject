@@ -9,6 +9,7 @@ import rd.sb_airplane_mvc.dao.Database;
 import rd.sb_airplane_mvc.model.Flight;
 import rd.sb_airplane_mvc.service.converter.CaptainDTOConverter;
 import rd.sb_airplane_mvc.service.dto.CaptainDTO;
+import rd.sb_airplane_mvc.service.dto.RouteDTO;
 
 
 @Service
@@ -53,6 +54,36 @@ public class AppService {
 		
 		
 		return captainData;
+	}
+
+	
+	public List<RouteDTO> getRoutesByCaptains(int minimumDestinationCount) {
+	
+		List<Flight> flightData = this.getAllFlights();
+		
+		CaptainDTOConverter converter = new CaptainDTOConverter();
+		List<RouteDTO> routes = converter.createRouteDataByCaptains(flightData);
+		
+		if(minimumDestinationCount > 0) {
+			this.clearRoutesBelowTheRequirement(routes, minimumDestinationCount);
+		}
+		
+		return routes;
+	}
+	
+	
+	private void clearRoutesBelowTheRequirement(List<RouteDTO> routes, int minimumDestinationCount) {
+		
+		for(int i = 0; i < routes.size(); i++) {
+			
+			RouteDTO route = routes.get(i);
+			
+			if(route.getRouteListSize() < minimumDestinationCount) {
+				
+				routes.remove(i);
+				i--;
+			}
+		}
 	}
 
 }
