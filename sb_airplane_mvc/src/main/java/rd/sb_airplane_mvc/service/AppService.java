@@ -16,11 +16,13 @@ import rd.sb_airplane_mvc.service.dto.RouteDTO;
 public class AppService {
 
 	private final Database db;
+	private final CaptainDTOConverter converter;
 	
 	
 	@Autowired
-	public AppService(Database db) {
+	public AppService(Database db, CaptainDTOConverter converter) {
 		this.db = db;
+		this.converter = converter;
 	}
 	
 	
@@ -49,7 +51,6 @@ public class AppService {
 		
 		List<Flight> flightData = this.getAllFlightsWithFlightTimes();
 		
-		CaptainDTOConverter converter = new CaptainDTOConverter();
 		List<CaptainDTO> captainData = converter.createCaptainDTOs(flightData);
 		
 		
@@ -61,7 +62,6 @@ public class AppService {
 	
 		List<Flight> flightData = this.getAllFlights();
 		
-		CaptainDTOConverter converter = new CaptainDTOConverter();
 		List<RouteDTO> routes = converter.createRouteDataByCaptains(flightData);
 		
 		if(minimumDestinationCount > 0) {

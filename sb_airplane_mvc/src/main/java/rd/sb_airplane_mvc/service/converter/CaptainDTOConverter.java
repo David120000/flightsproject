@@ -3,15 +3,26 @@ package rd.sb_airplane_mvc.service.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Converter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import rd.sb_airplane_mvc.model.Flight;
 import rd.sb_airplane_mvc.service.dto.CaptainDTO;
 import rd.sb_airplane_mvc.service.dto.RouteDTO;
 
 
-@Converter
+@Service
 public class CaptainDTOConverter {
 
+	private final RouteDTOClassifier routeClassifier;
+	
+	
+	@Autowired
+	public CaptainDTOConverter(RouteDTOClassifier routeClassifier) {
+		this.routeClassifier = routeClassifier;
+	}
+	
+	
 	
 	public List<CaptainDTO> createCaptainDTOs(List<Flight> flightData) {
 		
@@ -73,6 +84,8 @@ public class CaptainDTOConverter {
 			
 		}
 
+		routeClassifier.setRouteTypes(routeData);
+		
 		
 		return routeData;
 	}
