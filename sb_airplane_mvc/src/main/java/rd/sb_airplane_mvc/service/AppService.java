@@ -1,5 +1,7 @@
 package rd.sb_airplane_mvc.service;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import rd.sb_airplane_mvc.dao.Database;
 import rd.sb_airplane_mvc.model.Flight;
 import rd.sb_airplane_mvc.service.converter.CaptainDTOConverter;
+import rd.sb_airplane_mvc.service.converter.FlightRoutePlanner;
 import rd.sb_airplane_mvc.service.dto.CaptainDTO;
 import rd.sb_airplane_mvc.service.dto.RouteDTO;
 
@@ -84,6 +87,18 @@ public class AppService {
 				i--;
 			}
 		}
+	}
+	
+	
+	public ArrayList<LinkedList<Flight>> getAllPossibleRoutes() {
+		
+		List<Flight> allFlights = this.getAllFlights();
+		
+		FlightRoutePlanner routePlanner = new FlightRoutePlanner();
+		ArrayList<LinkedList<Flight>> allPossibleRoutes = routePlanner.getAllFlightRoutes(allFlights);
+		
+		
+		return allPossibleRoutes;
 	}
 
 }

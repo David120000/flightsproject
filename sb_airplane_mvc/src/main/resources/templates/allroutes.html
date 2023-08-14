@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Possible Flight Routes</title>
+</head>
+<body>
+	<h1>All Possible Flight Routes:</h1>
+	<table>
+		<tr th:each="route : ${routes}">
+			<td>
+				<table>
+					<tr th:each="flight : ${route}">
+						<td th:text="${flight}"></td>	
+					</tr>
+				</table>
+				<hr>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

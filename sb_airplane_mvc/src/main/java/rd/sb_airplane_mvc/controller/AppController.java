@@ -71,4 +71,13 @@ public class AppController {
 		return "captainroutes.html";
 		
 	}
+	
+	
+	@GetMapping("/route/all")
+	public String showAllRoutes(Model model) {
+		
+		model.addAttribute("routes", service.getAllPossibleRoutes());
+		
+		return "allroutes.html";
+	}
 }
