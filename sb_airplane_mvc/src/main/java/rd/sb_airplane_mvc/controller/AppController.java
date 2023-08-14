@@ -113,4 +113,9 @@ public class AppController {
 		return "planner.html";
 	}
 	
+	
+	@GetMapping("/")
+	public String showIndexPage() {
+		return "index.html";
+	}
 }

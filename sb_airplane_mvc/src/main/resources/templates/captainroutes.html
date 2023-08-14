@@ -10,9 +10,9 @@
 		<label for="selection">Show routes with the following destination count only:</label>
 		<select id="selection" name="minDestCount">
 			<option th:selected="${previousRequirement == 0}" value="0">Show All</option>
-			<option th:selected="${previousRequirement == 1}">1</option>
 			<option th:selected="${previousRequirement == 2}">2</option>
 			<option th:selected="${previousRequirement == 3}">3</option>
+			<option th:selected="${previousRequirement == 4}">4</option>
 		</select>
 		<br/>
 		<input type="submit"/>
