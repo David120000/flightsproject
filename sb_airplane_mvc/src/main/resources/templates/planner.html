@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Plan Your Flights Here!</title>
+</head>
+<body>
+	<h1>Plan Your Flights Here!</h1>
+	<form action="/route/plan" method="post">
+		<label for="from">From:</label>
+		<select id="from" name="from">
+			<option th:each="depcity : ${depcities}" th:value="${depcity}" th:text="${depcity}" th:selected="${depcity.equals(fromwhere)}"></option>
+		</select>
+		<br/>
+		<label for="to">To:</label>
+		<select id="to" name="to">
+			<option th:each="arrivcity : ${arrivcities}" th:value="${arrivcity}" th:text="${arrivcity}" th:selected="${arrivcity.equals(towhere)}"></option>
+		</select>
+		<br/>
+		<input type="submit" />
+	</form>
+	<div th:if="${routes != null}">
+		<table border="1">
+			<tr>
+				<th th:text="${fromwhere} + ' -> ' + ${towhere}"></th>
+			</tr>
+			<tr th:each="route : ${routes}">		
+				<td th:each="flight : ${route.getRoute()}" th:text="${flight.departureCity} + ' -> ' + ${flight.arrivalCity} + ' (Flight ID: ' + ${flight.flightId} + ')'"></td>
+				<td th:text="${route.travelTime} + ' minutes in total'"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package rd.sb_airplane_mvc.service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,7 @@ import rd.sb_airplane_mvc.model.Flight;
 import rd.sb_airplane_mvc.service.converter.CaptainDTOConverter;
 import rd.sb_airplane_mvc.service.converter.FlightRoutePlanner;
 import rd.sb_airplane_mvc.service.dto.CaptainDTO;
+import rd.sb_airplane_mvc.service.dto.PlannedRouteDTO;
 import rd.sb_airplane_mvc.service.dto.RouteDTO;
 
 
@@ -99,6 +101,50 @@ public class AppService {
 		
 		
 		return allPossibleRoutes;
+	}
+
+
+	public List<String> getDepartureCities() {
+
+		return db.getDepartureCities();
+	}
+
+
+	public List<String> getArrivalCities() {
+		
+		return db.getArrivalCities();
+	}
+
+
+	public ArrayList<PlannedRouteDTO> calculateRoute(String fromCity, String toCity) {
+		
+		ArrayList<PlannedRouteDTO> resultList = new ArrayList<>();
+		
+		
+		ArrayList<LinkedList<Flight>> allPossibleRoutes = this.getAllPossibleRoutes();
+		
+		for(LinkedList<Flight> possibleRoute : allPossibleRoutes) {
+			
+			String startingLocation = possibleRoute.getFirst().getDepartureCity();
+			String finalLocation = possibleRoute.getLast().getArrivalCity();
+			
+			if(fromCity.equals(startingLocation) && toCity.equals(finalLocation)) {
+				
+				long travelTimeMinutes = 0L;
+				
+				for(int linkedListIndex = 0; linkedListIndex < possibleRoute.size(); linkedListIndex++) {
+					
+					Flight flight = possibleRoute.get(linkedListIndex);
+					travelTimeMinutes += (flight.getDepartureTime().until(flight.getArrivalTime(), ChronoUnit.MINUTES));
+				}
+				
+				PlannedRouteDTO recommendedRoute = new PlannedRouteDTO(possibleRoute, travelTimeMinutes);
+				resultList.add(recommendedRoute);
+			}
+		}
+		
+		
+		return resultList;
 	}
 
 }

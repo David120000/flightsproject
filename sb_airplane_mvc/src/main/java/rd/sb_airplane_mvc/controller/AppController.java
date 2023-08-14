@@ -1,5 +1,7 @@
 package rd.sb_airplane_mvc.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import rd.sb_airplane_mvc.service.AppService;
+import rd.sb_airplane_mvc.service.dto.PlannedRouteDTO;
 
 
 @Controller
@@ -80,4 +83,34 @@ public class AppController {
 		
 		return "allroutes.html";
 	}
+	
+	
+	@GetMapping("/route/plan")
+	public String showRoutePlanner(Model model) {
+		
+		model.addAttribute("depcities", service.getDepartureCities());
+		model.addAttribute("arrivcities", service.getArrivalCities());
+		
+		return "planner.html";
+	}
+	
+	@PostMapping("/route/plan")
+	public String calculateRoute(
+			Model model,
+			@RequestParam(name="from") String fromCity,
+			@RequestParam(name="to") String toCity) {
+		
+		
+		ArrayList<PlannedRouteDTO> recommendedRoutes = service.calculateRoute(fromCity, toCity);
+		model.addAttribute("routes", recommendedRoutes);
+		
+		model.addAttribute("depcities", service.getDepartureCities());
+		model.addAttribute("arrivcities", service.getArrivalCities());
+		model.addAttribute("fromwhere", fromCity);
+		model.addAttribute("towhere", toCity);
+		
+		
+		return "planner.html";
+	}
+	
 }
