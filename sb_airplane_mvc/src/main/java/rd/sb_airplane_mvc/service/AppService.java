@@ -130,13 +130,7 @@ public class AppService {
 			
 			if(fromCity.equals(startingLocation) && toCity.equals(finalLocation)) {
 				
-				long travelTimeMinutes = 0L;
-				
-				for(int linkedListIndex = 0; linkedListIndex < possibleRoute.size(); linkedListIndex++) {
-					
-					Flight flight = possibleRoute.get(linkedListIndex);
-					travelTimeMinutes += (flight.getDepartureTime().until(flight.getArrivalTime(), ChronoUnit.MINUTES));
-				}
+				long travelTimeMinutes = possibleRoute.getFirst().getDepartureTime().until(possibleRoute.getLast().getArrivalTime(), ChronoUnit.MINUTES);
 				
 				PlannedRouteDTO recommendedRoute = new PlannedRouteDTO(possibleRoute, travelTimeMinutes);
 				resultList.add(recommendedRoute);
